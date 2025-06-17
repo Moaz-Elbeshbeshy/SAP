@@ -3,8 +3,8 @@
 .terraform.lock.hcl
 
 # Ignore Terraform state files
-terraform.tfstate
-terraform.tfstate.backup
+*.tfstate
+*.tfstate.backup
 
 # Ignore crash logs
 crash.log
