@@ -10,8 +10,8 @@ resource "google_sql_database_instance" "default" {
       ipv4_enabled        = true
       
       authorized_networks {
-        name  = "my-home-ip"
-        value = "37.76.41.47"
+        name  = "my-vm-ip"
+        value = "34.9.115.36"
       }
     }
   }
@@ -59,7 +59,7 @@ resource "google_compute_instance" "php_server" {
 
   cat <<EOF_PHP > /var/www/html/index.php
 ${templatefile("${path.module}/php_index.tpl.php", {
-    db_ip       = google_sql_database_instance.default.ip_addresses[0].ip_address,
+    db_ip       = google_sql_database_instance.default.public_ip_address,
     db_name     = google_sql_database.app_db.name,
     db_user     = google_sql_user.app_user.name,
     db_password = var.db_password
