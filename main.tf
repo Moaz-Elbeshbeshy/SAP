@@ -67,12 +67,15 @@ resource "google_compute_instance" "php_server" {
     metadata_startup_script = <<-EOF
         apt-get update
         apt-get install -y apache2 php php-pgsql
+
+        # Prioritize index.php over index.html
+        sed -i 's/DirectoryIndex .*/DirectoryIndex index.php index.html/' /etc/apache2/mods-enabled/dir.conf
+        
         systemctl start apache2
         systemctl enable apache2
 
-        cat <<EOL_PHP > /var/www/html/index.php
-        ${local.php_file}
-        EOL_PHP
+        # Create index.php from base64 decoded content
+        echo "${local.php_file_b64}" | base64 -d > /var/www/html/index.php
 
         systemctl restart apache2
     EOF
