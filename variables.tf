@@ -6,13 +6,13 @@ variable "project_id" {
 variable "region" {
     type = string
     description = "GCP region"
-    default = "europe-central2"
+    default = "us-central1"
 }
 
 variable "zone" {
     type = string
     description = "GCP zone for the compute instance"
-    default = "europe-central2-a"
+    default = "us-central1-a"
 }
 
 variable "db_password" {
